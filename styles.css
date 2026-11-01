@@ -31,3 +31,13 @@
   min-width: 0;
   overflow: hidden;
 }
+
+.platform-logo{display:block;width:100%;max-width:130px;height:48px;object-fit:contain;margin:0 auto}.platform{min-width:0;overflow:hidden}.platforms .platform img{max-width:100%}a:focus-visible,button:focus-visible{outline:2px solid #ff5364;outline-offset:4px}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+
+/* Image-based portfolio covers */
+.project-art .project-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .5s ease,filter .4s ease;filter:saturate(.85)}
+.project-card:hover .project-photo{transform:scale(1.07);filter:saturate(1.1)}
+.project-art .photo-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(5,6,11,.78),rgba(5,6,11,.08) 75%),linear-gradient(90deg,rgba(5,6,11,.36),transparent)}
+.project-art .art-word{z-index:2;font-size:clamp(24px,2.5vw,39px);text-shadow:0 3px 20px #000,0 2px 5px #000}
+.project-art:after{display:none}
+@media(prefers-reduced-motion:reduce){.project-art .project-photo{transition:none}}

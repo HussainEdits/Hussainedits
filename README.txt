@@ -9,8 +9,7 @@ Artwork themes: aviation, architecture, city, sunset, industry, neon, desert, po
 To add a project: duplicate a row, edit the fields, keep the comma and save.
 For projects without a watch link, use null (without quotes).
 
-IMPORTANT: Update the two occurrences of (21) in index.html when adding projects,
-and update the number 21 in the About section.
+Project counts update automatically from projects.js.
 
 CONTACT
 Email: Hussainfilm@gmail.com
