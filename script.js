@@ -8,7 +8,7 @@ function render(filter='All') {
  const visible=projects.map((p,i)=>({p,i})).filter(({p})=>filter==='All'||p[2]===filter);
  grid.innerHTML=visible.map(({p,i})=>{
  const [name,kind,category,url,word,style]=p;
- const src=ytIds[i]?`https://i.ytimg.com/vi/${ytIds[i]}/hqdefault.jpg`:driveIds[i]?`https://drive.google.com/thumbnail?id=${driveIds[i]}&sz=w1000`:`https://images.unsplash.com/${photoIds[i]}?auto=format&fit=crop&w=900&q=78`;
+ const src=name==='HungerStation'?'hungerstation-cover.png':ytIds[i]?`https://i.ytimg.com/vi/${ytIds[i]}/hqdefault.jpg`:driveIds[i]?`https://drive.google.com/thumbnail?id=${driveIds[i]}&sz=w1000`:`https://images.unsplash.com/${photoIds[i]}?auto=format&fit=crop&w=900&q=78`;
  const safeName=htmlEscape(name),safeKind=htmlEscape(kind);
  const card=`<div class="project-art ${style}"><img class="project-photo" src="${src}" alt="${safeName} project cover" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='cover-${i+1}.svg'"><div class="photo-shade"></div><span class="art-word">${htmlEscape(word)}</span></div><div class="project-info"><div><h3>${safeName} <span class="separator">|</span> ${safeKind}</h3><p>${category==='Broadcast'?'Broadcast / Entertainment':category==='Corporate'?'Corporate / Documentary':'Brand / Commercial'}</p></div>${url?'<span class="play">▶</span>':''}</div>`;
  return url?`<a class="project-card" href="${url}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${safeName} — ${safeKind}">${card}</a>`:`<article class="project-card no-link">${card}</article>`;
