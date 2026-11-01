@@ -8,7 +8,7 @@ function render(filter='All') {
  const visible=projects.map((p,i)=>({p,i})).filter(({p})=>filter==='All'||p[2]===filter);
  grid.innerHTML=visible.map(({p,i})=>{
  const [name,kind,category,url,word,style]=p;
- const src=name==='vivo'?'vivo-cover.png':name==='Museums Commission'?'museums-cover.png':name==='Saudia'?'saudia-cover.png':name==='Sirar by stc'?'sirar-cover.png':name==='Elm'?'elm-cover.png':name==='Al Rajhi Bank'?'alrajhi-cover.png':name==='OSP'?'osp-cover.png':name==='HungerStation'?'hungerstation-cover.png':ytIds[i]?`https://i.ytimg.com/vi/${ytIds[i]}/hqdefault.jpg`:driveIds[i]?`https://drive.google.com/thumbnail?id=${driveIds[i]}&sz=w1000`:`https://images.unsplash.com/${photoIds[i]}?auto=format&fit=crop&w=900&q=78`;
+ const src=name==='EVIQ'?'eviq-cover.png':name==='vivo'?'vivo-cover.png':name==='Museums Commission'?'museums-cover.png':name==='Saudia'?'saudia-cover.png':name==='Sirar by stc'?'sirar-cover.png':name==='Elm'?'elm-cover.png':name==='Al Rajhi Bank'?'alrajhi-cover.png':name==='OSP'?'osp-cover.png':name==='HungerStation'?'hungerstation-cover.png':ytIds[i]?`https://i.ytimg.com/vi/${ytIds[i]}/hqdefault.jpg`:driveIds[i]?`https://drive.google.com/thumbnail?id=${driveIds[i]}&sz=w1000`:`https://images.unsplash.com/${photoIds[i]}?auto=format&fit=crop&w=900&q=78`;
  const safeName=htmlEscape(name),safeKind=htmlEscape(kind);
  const card=`<div class="project-art ${style}"><img class="project-photo" src="${src}" alt="${safeName} project cover" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='cover-${i+1}.svg'"><div class="photo-shade"></div></div><div class="project-info"><div><h3>${safeName} <span class="separator">|</span> ${safeKind}</h3><p>${category==='Broadcast'?'Broadcast / Entertainment':category==='Corporate'?'Corporate / Documentary':'Brand / Commercial'}</p></div>${url?'<span class="play">▶</span>':''}</div>`;
  return url?`<a class="project-card" href="${url}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${safeName} — ${safeKind}">${card}</a>`:`<article class="project-card no-link">${card}</article>`;
@@ -16,6 +16,7 @@ function render(filter='All') {
 }
 function htmlEscape(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 render();for(const [id,value] of [['project-count',`(${projects.length})`],['all-count',`(${projects.length})`],['stat-count',String(projects.length)]]){const el=document.getElementById(id);if(el)el.textContent=value;}document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render(btn.dataset.filter)}));document.getElementById('year').textContent=new Date().getFullYear();const menu=document.querySelector('.menu-toggle'),nav=document.getElementById('nav');menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',open);menu.textContent=open?'✕':'☰'});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰'}));
+
 
 
 
