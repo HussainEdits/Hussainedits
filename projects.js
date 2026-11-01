@@ -21,3 +21,18 @@ window.PORTFOLIO_PROJECTS = [
 ['Hajj 2026','Project','Corporate','https://youtu.be/Ht9RsfX5Al0?si=1dKAsFt7PLY4EvES','HAJJ 2026','desert'],
 ['Bakora','Podcast','Broadcast','https://youtu.be/mVOFY-G6mRg?si=8DX0PAtdubP4xNMA','Bakora','podcast']
 ];
+
+/* Fix Featured On logos */
+.platform-logo {
+  display: block;
+  width: 100%;
+  max-width: 130px;
+  height: 48px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.platform {
+  min-width: 0;
+  overflow: hidden;
+}
