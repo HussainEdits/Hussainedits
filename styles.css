@@ -16,3 +16,18 @@
   overflow: hidden !important;
   min-width: 0 !important;
 }
+
+/* Fix Featured On logos */
+.platform-logo {
+  display: block;
+  width: 100%;
+  max-width: 130px;
+  height: 48px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.platform {
+  min-width: 0;
+  overflow: hidden;
+}
