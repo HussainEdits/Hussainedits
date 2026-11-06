@@ -18,7 +18,10 @@ window.PORTFOLIO_PROJECTS = [
 ['Elm','Brand Project','Brand','https://drive.google.com/file/d/1WlUb5H9oJhyw7QVuFCT1IgEKiPxNuFtP/view?usp=drivesdk','ELM','architecture'],
 ['Sona3 Alaqar','TV Show','Broadcast',null,'SONA3 ALAQAR','city'],
 ['vivo','Mobile Phones','Brand',null,'vivo','neon'],
+['Naif Arab University for Security Sciences','Project','Corporate','https://drive.google.com/file/d/1nin0A7seoDDYBw6Lf-rb-QgyQGd1wtmo/view?usp=drivesdk','NAUSS','desert'],
 ['Hajj 2026','Project','Corporate','https://youtu.be/Ht9RsfX5Al0?si=1dKAsFt7PLY4EvES','HAJJ 2026','desert'],
 ['Bakora','Podcast','Broadcast','https://youtu.be/mVOFY-G6mRg?si=8DX0PAtdubP4xNMA','Bakora','podcast']
 ];
+
+
 
