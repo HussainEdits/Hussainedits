@@ -1,21 +1,45 @@
 const projects = window.PORTFOLIO_PROJECTS || [];
 const grid=document.getElementById('project-grid');
-const photoIds = [
-'photo-1436491865332-7a61a109cc05','photo-1486406146926-c627a92ad1ab','photo-1519501025264-65ba15a82390','photo-1497366754035-f200968a6e72','photo-1581091226825-a6a2a5aee158','photo-1487958449943-2429e8be8625','photo-1519608487953-e999c86e7455','photo-1561214115-f2f134cc4912','photo-1509316785289-025f5b846b35','photo-1485846234645-a62644f84728','photo-1478720568477-152d9b164e26','photo-1550751827-4bd374c3f58b','photo-1436491865332-7a61a109cc05','photo-1540339832862-474599807836','photo-1503376780353-7e6692767b70','photo-1592833159117-ac790d8e6c89','photo-1497366811353-6870744d04b2','photo-1486406146926-c627a92ad1ab','photo-1512941937669-90a1b58e7e9','photo-1533850595620-7b1711221751','photo-1590602847861-f357a9332bbc'];
-const driveIds = {1:'1lQybBFw3OcOA07XaB-JjBEifdRzHkOje',2:'1HNQiHeeo7zLTqPB-yk16aWTrj-So294V',3:'1baV8jreHGghH6Zf16qElUWv1bqA2ihcD',4:'1Vb_L62EYlUbynJO4wYKEh3bZpQh1aTOv',5:'14MwX0M4pA0l7ShQHOA3uh7B9KXO63MFO',6:'1yL_YT9tjvMxbDmwX3QKcwPASeCp3BKsM',7:'1OgraZ4RcJ2WsnDqX7RXa255xsj0Njhu6',8:'18P2WLzFMsouR9vLNemLGKbpasmz7U7mq'};
-const ytIds = {0:'dbPKO3vOyKk',9:'wFWS2y8iMAw',10:'88h_tK0S19c',19:'Ht9RsfX5Al0',20:'mVOFY-G6mRg'};
+const categoryOrder = ['Corporate', 'Brand', 'Broadcast'];
+const fallbackNumbers = {
+ 'Airbus': 1, 'Al Rajhi Bank': 2, 'Bank D360': 3, 'GPCA Qatar': 4,
+ 'SABIC': 5, 'OSP': 6, 'GO TELECOMS': 7, 'Museums Commission': 8,
+ 'Tuwaiq': 9, 'Metet Moraba’a': 10, 'Almsafa Sefr': 11, 'Sirar by stc': 12,
+ 'Saudia': 13, 'HungerStation': 14, 'Lucid Motors': 15, 'EVIQ': 16,
+ 'Elm': 17, 'Sona3 Alaqar': 18, 'vivo': 19, 'Hajj 2026': 20, 'Bakora': 21
+};
+function videoCover(url) {
+ if (!url) return '';
+ const youtube = url.match(/^https://youtu.be/([w-]+)/);
+ if (youtube) return `https://i.ytimg.com/vi/${youtube[1]}/hqdefault.jpg`;
+ const drive = url.match(/^https://drive.google.com/file/d/([w-]+)/);
+ return drive ? `https://drive.google.com/thumbnail?id=${drive[1]}&sz=w1000` : '';
+}
 function render(filter='All') {
- const visible=projects.map((p,i)=>({p,i})).filter(({p})=>filter==='All'||p[2]===filter);
- grid.innerHTML=visible.map(({p,i})=>{
- const [name,kind,category,url,word,style]=p;
- const src=name==='Bank D360'?'d360-cover.png':name==='Lucid Motors'?'lucid-cover.png':name==='EVIQ'?'eviq-cover.png':name==='vivo'?'vivo-cover.png':name==='Museums Commission'?'museums-cover.png':name==='Saudia'?'saudia-cover.png':name==='Sirar by stc'?'sirar-cover.png':name==='Elm'?'elm-cover.png':name==='Al Rajhi Bank'?'alrajhi-cover.png':name==='OSP'?'osp-cover.png':name==='HungerStation'?'hungerstation-cover.png':ytIds[i]?`https://i.ytimg.com/vi/${ytIds[i]}/hqdefault.jpg`:driveIds[i]?`https://drive.google.com/thumbnail?id=${driveIds[i]}&sz=w1000`:`https://images.unsplash.com/${photoIds[i]}?auto=format&fit=crop&w=900&q=78`;
+ const visible = filter === 'All'
+  ? [...projects].sort((a,b)=>categoryOrder.indexOf(a[2])-categoryOrder.indexOf(b[2]))
+  : projects.filter(project=>project[2]===filter);
+ grid.innerHTML=visible.map(([name,kind,category,url,,style])=>{
+ const fallback = `cover-${fallbackNumbers[name] || 6}.svg`;
+ const src=name==='Bank D360'?'d360-cover.png':name==='Lucid Motors'?'lucid-cover.png':name==='EVIQ'?'eviq-cover.png':name==='vivo'?'vivo-cover.png':name==='Museums Commission'?'museums-cover.png':name==='Saudia'?'saudia-cover.png':name==='Sirar by stc'?'sirar-cover.png':name==='Elm'?'elm-cover.png':name==='Al Rajhi Bank'?'alrajhi-cover.png':name==='OSP'?'osp-cover.png':name==='HungerStation'?'hungerstation-cover.png':name==='Sona3 Alaqar'?'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=78':(videoCover(url) || fallback);
  const safeName=htmlEscape(name),safeKind=htmlEscape(kind);
- const card=`<div class="project-art ${style}"><img class="project-photo" src="${src}" alt="${safeName} project cover" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='cover-${i+1}.svg'"><div class="photo-shade"></div></div><div class="project-info"><div><h3>${safeName} <span class="separator">|</span> ${safeKind}</h3><p>${category==='Broadcast'?'Broadcast / Entertainment':category==='Corporate'?'Corporate / Documentary':'Brand / Commercial'}</p></div>${url?'<span class="play">▶</span>':''}</div>`;
+ const card=`<div class="project-art ${style}"><img class="project-photo" src="${src}" alt="${safeName} project cover" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${fallback}'"><div class="photo-shade"></div></div><div class="project-info"><div><h3>${safeName} <span class="separator">|</span> ${safeKind}</h3><p>${category==='Broadcast'?'Broadcast / Entertainment':category==='Corporate'?'Corporate / Documentary':'Brand / Commercial'}</p></div>${url?'<span class="play">▶</span>':''}</div>`;
  return url?`<a class="project-card" href="${url}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${safeName} — ${safeKind}">${card}</a>`:`<article class="project-card no-link">${card}</article>`;
  }).join('');
 }
 function htmlEscape(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 render();for(const [id,value] of [['project-count',`(${projects.length})`],['all-count',`(${projects.length})`],['stat-count',String(projects.length)]]){const el=document.getElementById(id);if(el)el.textContent=value;}document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render(btn.dataset.filter)}));document.getElementById('year').textContent=new Date().getFullYear();const menu=document.querySelector('.menu-toggle'),nav=document.getElementById('nav');menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',open);menu.textContent=open?'✕':'☰'});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰'}));
+
+
+
+
+
+
+
+
+
+
+
 
 
 
