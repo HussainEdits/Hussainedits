@@ -10,10 +10,10 @@ const fallbackNumbers = {
 };
 function videoCover(url) {
  if (!url) return '';
- const youtube = url.match(/^https://youtu.be/([w-]+)/);
- if (youtube) return `https://i.ytimg.com/vi/${youtube[1]}/hqdefault.jpg`;
- const drive = url.match(/^https://drive.google.com/file/d/([w-]+)/);
- return drive ? `https://drive.google.com/thumbnail?id=${drive[1]}&sz=w1000` : '';
+ const youtube = url.startsWith('https://youtu.be/') ? url.split('/')[3].split('?')[0] : '';
+ if (youtube) return `https://i.ytimg.com/vi/${youtube}/hqdefault.jpg`;
+ const drive = url.startsWith('https://drive.google.com/file/d/') ? url.split('/')[5] : '';
+ return drive ? `https://drive.google.com/thumbnail?id=${drive}&sz=w1000` : '';
 }
 function render(filter='All') {
  const visible = filter === 'All'
@@ -29,6 +29,28 @@ function render(filter='All') {
 }
 function htmlEscape(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 render();for(const [id,value] of [['project-count',`(${projects.length})`],['all-count',`(${projects.length})`],['stat-count',String(projects.length)]]){const el=document.getElementById(id);if(el)el.textContent=value;}document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render(btn.dataset.filter)}));document.getElementById('year').textContent=new Date().getFullYear();const menu=document.querySelector('.menu-toggle'),nav=document.getElementById('nav');menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',open);menu.textContent=open?'✕':'☰'});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰'}));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
